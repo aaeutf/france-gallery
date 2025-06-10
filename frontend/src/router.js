@@ -1,5 +1,3 @@
-
-
 import { createRouter, createWebHistory } from 'vue-router';
 import France from './components/France.vue';
 import Department from './components/Department.vue';
@@ -10,10 +8,10 @@ const routes = [
     component: France,
   },
   {
-    path: '/departement/:code',
-    name: 'PhotoGallery',
+    path: '/departement/:code/:name',
+    name: 'Department',
     component: Department,
-    props: true,
+    props: route => ({ code: route.params.code, name: route.params.name }),
   },
 ];
 

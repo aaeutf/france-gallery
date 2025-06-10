@@ -1,13 +1,11 @@
 <template>
   <div class="france-map">
-    <h2 class="map-title">Liste des Départements par Région</h2>
     <div v-for="region in regions" :key="region.name" class="region-block">
       <h3 class="region-title">{{ region.name }}</h3>
       <ul class="departments-list multi-col">
         <li v-for="dept in region.departments" :key="dept.code" class="department-item">
-          <router-link :to="{ name: 'PhotoGallery', params: { code: dept.code } }">
-            <span class="dept-code">{{ dept.code }}</span>
-            <span class="dept-name">{{ dept.name }}</span>
+          <router-link :to="{ name: 'Department', params: { code: dept.code, name: dept.name } }">
+            <span class="dept-name">{{ dept.name }} ({{ dept.code }})</span>
           </router-link>
         </li>
       </ul>
@@ -193,7 +191,7 @@ const regions = [
 }
 .region-title {
   font-size: 1.3rem;
-  color: #1a237e;
+  color: var(--color-heading);
   margin-bottom: 0.7rem;
   margin-top: 1.5rem;
 }
@@ -203,23 +201,32 @@ const regions = [
   margin-bottom: 1.5rem;
 }
 .departments-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 1rem;
   list-style: none;
   padding: 0;
   margin: 0 auto;
-  max-width: 700px;
-}
-.multi-col {
-  /* columns disabled */
+  max-width: 1200px;
 }
 .department-item {
-  break-inside: avoid;
-  margin-bottom: 0.5rem;
+  background: var(--color-background-soft);
+  border-radius: 10px;
+  box-shadow: 0 1px 4px #0001;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  height: 100px;
+  margin: 0;
+  transition: box-shadow 0.2s;
 }
-.dept-code {
-  font-weight: bold;
-  margin-right: 0.5em;
+.department-item:hover {
+  box-shadow: 0 4px 16px #0002;
 }
 .dept-name {
-  color: #2c3e50;
+  color: var(--color-heading);
+  font-size: 0.95em;
 }
 </style>
