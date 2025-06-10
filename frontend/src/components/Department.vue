@@ -2,10 +2,10 @@
   <div class="department-view">
     <div class="department-card">
       <h1>{{ name }} ({{ code }})</h1>
-      <button class="back-btn" @click="$router.push('/')">Retour à la carte de France</button>
+      <button class="back-btn" @click="$router.push('/')">返回</button>
     </div>
     <div class="photo-wall">
-      <div v-for="(photo, idx) in photos" :key="idx" class="photo-thumb">
+      <div v-for="(photo, idx) in photos" :key="idx" class="photo-thumb" @click="goToPhotoDetail(idx)">
         <img :src="photo" alt="Photo du département" />
       </div>
     </div>
@@ -14,11 +14,12 @@
 
 <script setup>
 import { defineProps } from 'vue'
+import { useRouter } from 'vue-router'
 const props = defineProps({
   code: { type: String, required: true },
   name: { type: String, required: true }
 })
-
+const router = useRouter()
 // Demo: Replace with real department photos later
 const photos = [
   'https://picsum.photos/seed/1/400/260',
@@ -42,6 +43,9 @@ const photos = [
   'https://picsum.photos/seed/19/400/260',
   'https://picsum.photos/seed/20/400/260',
 ]
+function goToPhotoDetail(idx) {
+  router.push({ name: 'PhotoDetail', params: { code: props.code, idx } })
+}
 </script>
 
 <style scoped>
@@ -71,6 +75,12 @@ const photos = [
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
+  transition: transform 0.18s cubic-bezier(.4,1.3,.6,1), box-shadow 0.18s;
+}
+.photo-thumb:hover {
+  transform: scale(1.07);
+  box-shadow: 0 4px 16px #0002;
 }
 .photo-thumb img {
   width: 100%;
