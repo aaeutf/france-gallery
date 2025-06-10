@@ -10,7 +10,7 @@ const routes = [
     component: France,
   },
   {
-    path: '/departement/:code/:name',
+    path: '/departement/:code',
     name: 'PhotoGallery',
     component: Department,
     props: true,
